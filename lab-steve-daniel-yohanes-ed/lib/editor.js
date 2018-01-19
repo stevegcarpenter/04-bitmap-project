@@ -1,6 +1,7 @@
 'use strict';
 
 const fs = require('fs');
+const bitmap = require('bitmap');
 const editor = module.exports = {};
 
 editor.readBitmap = (readPath, callback) => {
@@ -9,7 +10,7 @@ editor.readBitmap = (readPath, callback) => {
       return callback(err);
     }
 
-    callback(null, data)
+    callback(null, data);
   });
 };
 
