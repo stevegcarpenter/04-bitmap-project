@@ -1,0 +1,26 @@
+{
+  "name": "lab-steve-daniel-yohanes-ed",
+  "version": "0.0.0",
+  "description": "Bitmap manipulation software",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "jest --verbose"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stevegcarpenter/04-bitmap-project.git"
+  },
+  "author": "Steve Carpenter, Daniel Logerstedt, Yohanes Desmissie, Ed Abrahamsen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/stevegcarpenter/04-bitmap-project/issues"
+  },
+  "homepage": "https://github.com/stevegcarpenter/04-bitmap-project#readme",
+  "dependencies": {
+    "eslint": "^4.15.0",
+    "jest": "^22.1.3"
+  }
+}
