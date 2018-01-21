@@ -6,7 +6,6 @@ const transform = (module.exports = {});
 // This is used as a quick check to see if a transformation is supported
 transform.types = {
   greyscale: true,
-  rotate: true,
   vflip: true,
   hflip: true,
   dflip: true,
