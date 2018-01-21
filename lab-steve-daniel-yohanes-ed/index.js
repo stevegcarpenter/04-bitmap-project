@@ -12,14 +12,14 @@ function usage() {
                        name, this program will modify the original image and
                        store the result in the output file.
 
-    transform-names:   greyscale:       Apply greyscale modification
-                       vflip:           Vertically flip
-                       hflip:           Horizontally flip
-                       dflip:           Diagonally flip
-                       blueify:         Change bitmap image to all blue
-                       greenify:        Change bitmap image to all green
-                       redify:          Change bitmap image to all red
-                       border:          Add white border around bitmap image
+    transform-names:   greyscale        Apply greyscale modification
+                       vflip            Vertically flip
+                       hflip            Horizontally flip
+                       dflip            Diagonally flip
+                       blueify          Change bitmap image to all blue
+                       greenify         Change bitmap image to all green
+                       redify           Change bitmap image to all red
+                       border           Add white border around bitmap image
     `
   );
 }
