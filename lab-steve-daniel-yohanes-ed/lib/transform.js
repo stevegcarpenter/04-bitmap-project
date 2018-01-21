@@ -7,6 +7,9 @@ const transform = (module.exports = {});
 transform.types = {
   greyscale: true,
   rotate: true,
+  vFlip: true,
+  hFlip: true,
+  dFlip: true,
 };
 
 transform.applyT = function(bufferObj, type) {
@@ -21,6 +24,12 @@ transform.applyT = function(bufferObj, type) {
     return transform.greyScale(bufferObj);
   } else if (type === 'rotate') {
     return transform.rotate(bufferObj);
+  } else if (type === 'vFlip') {
+    return transform.vFlip(bufferObj);
+  } else if (type === 'hFlip') {
+    return transform.hFlip(bufferObj);
+  } else if (type === 'dFlip') {
+    return transform.dFlip(bufferObj);
   }
 };
 
@@ -42,4 +51,51 @@ transform.greyScale = function(bufferObj) {
   }
   console.log('new buffer', bufferObj);
   return bufferObj;
+};
+
+transform.vFlip = function (imgObj) {
+  // Verify the argument passed exists and is an object containing buffer data
+  if (!imgObj || !imgObj.allData) return null;
+  // Declaration of beginning and end points for row slices
+  let start = 0, end = imgObj.width, bufferArray = [];
+  // Seperation of rows from pixel array buffer into array of row buffers
+  for (let i = 0; i < imgObj.height; i++) {
+    bufferArray.push(imgObj.pixelArray.slice(start, end))
+    start = end;
+    end = end + imgObj.width;
+  }
+  // Reversal of array containing rows
+  bufferArray = bufferArray.reverse();
+  // Concatination of row buffers in reverse order
+  imgObj.pixelArray = Buffer.concat(bufferArray);
+  // Pass back the object containing altered data
+  return imgObj;
+};
+
+transform.hFlip = function (imgObj) {
+  // Verify the argument passed exists and is an object containing buffer data
+  if (!imgObj || !imgObj.allData) return null;
+  // Declaration of beginning and end points for row slices
+  let start = 0, end = imgObj.width, bufferArray = [];
+  // Seperation of rows from pixel array buffer into array of row buffers
+  for (let i = 0; i < imgObj.height; i++) {
+    bufferArray.push(imgObj.pixelArray.slice(start, end))
+    start = end;
+    end = end + imgObj.width;
+  }
+  // Reversal of rows contained in array
+  for (let i in bufferArray) bufferArray[i] = bufferArray[i].reverse();
+  // Concatination of row buffers in reverse order
+  imgObj.pixelArray = Buffer.concat(bufferArray);
+  // Pass back the object containing altered data
+  return imgObj;
+};
+
+transform.dFlip = function (imgObj) {
+  // Verify the argument passed exists and is an object containing buffer data
+  if (!imgObj || !imgObj.allData) return null;
+  // Reversal of entire pixel array to diagonally flip image
+  imgObj.pixelArray = imgObj.pixelArray.reverse();
+  // Pass back the object containing altered data
+  return imgObj;
 };
