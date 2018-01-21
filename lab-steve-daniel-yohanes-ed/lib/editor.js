@@ -46,7 +46,10 @@ editor.readBitmap = (readPath, options, callback) => {
 // Write a bitmap image file given the data and destination path
 editor.writeBitmap = function(writePath, data, testCB) {
   if (!writePath || !data) return null;
-  if (typeof data != Bitmap) return null;
+  if (!(data instanceof Bitmap)) {
+    console.log(`Error, typeof data is ${typeof data}`);
+    return null;
+  }
   if (typeof writePath != 'string') return null;
 
   let newBuffer = Buffer.concat(
