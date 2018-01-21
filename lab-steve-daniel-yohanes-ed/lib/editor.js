@@ -1,51 +1,59 @@
 'use strict';
 
 const fs = require('fs');
+const Bitmap = require('./bitmap');
+const transform = require('./transform');
 const editor = (module.exports = {});
 
-editor.readBitmap = (readPath, options) => {
-  if (!readPath) return null;
+editor.readBitmap = (readPath, options, callback) => {
+  if (!readPath || !options) return null;
 
+  // Read the bmp file
   fs.readFile(readPath, (err, data) => {
     if (err) {
-      if (options.testCB) options.testCB(err);
+      if (callback) callback(err);
       return console.error(new Error(err));
     }
 
-    let bufferObj;
-    let newData;
-    console.log('options')
-console.log(options)
-    // if a bitmap function was provided, run it
-    if (options.bitMapFunc) {
-      console.log('in bitmapfunc')
-      bufferObj = options.bitMapFunc(data);
-      console.log(bufferObj)
+    var bufferObj;
+    var newData;
+    var tranType = options.transform;
+
+    if (options.doBitmap) {
+      // Take the buffer data and make it an object
+      bufferObj = new Bitmap(data);
 
       // transform the data
-      if (options.transformFunc) {
-        console.log('in transformmapfunc')
-        newData = options.transformFunc(bufferObj);
+      if (options.doTransform) {
+        // Pass in the Buffer array and a transform string indicating
+        // which transformation to make (e.g. 'greyscale', 'rotate', etc)
+        console.log('editor.js');
+        console.log('bufferObj');
+        console.log(bufferObj);
+        console.log('tranType');
+        console.log(tranType);
+        newData = transform.applyT(bufferObj. tranType);
       }
     }
 
     // if writeBitmap was specified, do it.
-    if (options.writeBitmap) {
-      writeBitmap(process.argv[3], newData, options.testCB);
+    if (options.doWriteFile) {
+      editor.writeBitmap(options.writeFilePath, newData, callback);
     }
 
     return;
   });
 };
 
-function writeBitmap(writePath, data, testCB) {
+editor.writeBitmap = function(writePath, data, testCB) {
   console.log('writepath' + writePath);
   if (!writePath || !data) return null;
   let newBuffer = Buffer.concat(
     [data.allData.slice(0, 54), data.colorTable, data.pixelArray],
     data.allData.length()
   );
+
   fs.writeFile(writePath, newBuffer, err => {
     if (err) testCB(err);
   });
-}
+};

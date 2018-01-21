@@ -1,8 +1,6 @@
 'use strict';
 
-const bitmap = module.exports = {};
-
-bitmap.Buff = function(buffer) {
+module.exports = function(buffer) {
   this.allData = buffer;
   this.type = buffer.toString('utf-8', 0, 2);
   this.fileSize = buffer.readUInt32LE(2);

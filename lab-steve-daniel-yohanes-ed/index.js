@@ -1,6 +1,5 @@
 'use strict';
 
-const bitmap = require('./lib/bitmap');
 const transform = require('./lib/transform');
 const editor = require('./lib/editor');
 
@@ -17,40 +16,35 @@ function usage() {
 }
 
 function executeProgram(options) {
-  console.log('transform')
-  console.log(transform)
-  let transformFuncs = {
-    greyscale: transform.greyScale,
-    rotate: transform.rotate,
-  };
+  // Set additional option
+  options.doBitmap = true;
+  options.doTransform = true;
+  options.doWriteFile = true;
 
-  // Check if the user entered an invalid tranformation type
-  if (!(options.transformType in transformFuncs)) {
-    console.error(`Error: Invalid transformation ${options.transformType}`);
-    usage();
-    return;
-  }
-
-  options.transformFunc = transformFuncs[options.transformFunc];
-  options.bitMapFunc = bitmap.Buff;
-  options.writeBitMapFunc = editor.writeBitmap;
-  options.testCB = null;
-
-  editor.readBitmap(options.inFilePath, options);
+  // Execute the program
+  editor.readBitmap(options.readFilePath, options, null);
 }
 
 // Start Execution
 (function() {
+  // Validate that the number of arguments provided was correct
   if (process.argv.length !== 5) {
     console.error('Error: 3 Arguments Are Mandatory');
     usage();
     return;
   }
 
+  // Check if the user entered an invalid tranformation type
+  if (!(process.argv[4] in transform.types)) {
+    console.error(`Error: Invalid transformation ${process.argv[4]}`);
+    usage();
+    return;
+  }
+
   let options = {
-    inFilePath: `${__dirname}/${process.argv[2]}`,
-    outFilePath: `${__dirname}/${process.argv[3]}`,
-    transformType: process.argv[4],
+    readFilePath: `${__dirname}/${process.argv[2]}`,
+    writeFilePath: `${__dirname}/${process.argv[3]}`,
+    transform: process.argv[4],
   };
 
   // Do it!
