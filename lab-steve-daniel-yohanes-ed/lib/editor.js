@@ -15,7 +15,7 @@ editor.readBitmap = (readPath, options, callback) => {
   fs.readFile(readPath, (err, data) => {
     if (err) {
       if (callback) callback(err);
-      return console.error(new Error(err));
+      return;
     }
 
     var bufferObj;
