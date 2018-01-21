@@ -6,6 +6,10 @@ const transform = (module.exports = {});
 // This is used as a quick check to see if a transformation is supported
 transform.types = {
   greyscale: true,
+  rotate: true,
+  vFlip: true,
+  hFlip: true,
+  dFlip: true,
   blueify: true,
   greenify: true,
   redify: true,
@@ -19,17 +23,25 @@ transform.applyT = function(bufferObj, type) {
   // Add additional transformation types here
   // Don't forget to put them in the transform.types object above as well
   if (type === 'greyscale') {
-    return greyScale(bufferObj);
+    return transform.greyScale(bufferObj);
   } else if (type === 'blueify') {
-    return rgbify(bufferObj, 0);
+    return transform.rgbify(bufferObj, 0);
   } else if (type === 'greenify') {
-    return rgbify(bufferObj, 1);
+    return transform.rgbify(bufferObj, 1);
   } else if (type === 'redify') {
-    return rgbify(bufferObj, 2);
+    return transform.rgbify(bufferObj, 2);
+  } else if (type === 'vFlip') {
+    return transform.vFlip(bufferObj);
+  } else if (type === 'hFlip') {
+    return transform.hFlip(bufferObj);
+  } else if (type === 'dFlip') {
+    return transform.dFlip(bufferObj);
   }
 };
 
-let greyScale = function(bufferObj) {
+transform.greyScale = function(bufferObj) {
+  if (!bufferObj || !bufferObj.allData) return null;
+
   //Pixel with RGB values of (30,128,255)
   // The red level R=30, The green level G=128, The blue level B=255
   // R' = G' = B' = (R+G+B) / 3 = (30+128+255) / 3 = 138
@@ -48,12 +60,14 @@ let greyScale = function(bufferObj) {
   return bufferObj;
 };
 
-let rgbify = function(bufferObj, rgb) {
+transform.rgbify = function(bufferObj, rgb) {
+  if (!bufferObj || !bufferObj.allData) return null;
+  if (rgb < 0 || rgb > 2) return null;
+
   // Colors are formatted as follows:
   // bufferObj.colorTable[i + 0] = blue
   // bufferObj.colorTable[i + 1] = green
   // bufferObj.colorTable[i + 2] = red
-
   switch (rgb) {
   case 0:
     // if rgb == 0, blueify
@@ -82,4 +96,51 @@ let rgbify = function(bufferObj, rgb) {
   }
 
   return bufferObj;
+};
+
+transform.vFlip = function (imgObj) {
+  // Verify the argument passed exists and is an object containing buffer data
+  if (!imgObj || !imgObj.allData) return null;
+  // Declaration of beginning and end points for row slices
+  let start = 0, end = imgObj.width, bufferArray = [];
+  // Seperation of rows from pixel array buffer into array of row buffers
+  for (let i = 0; i < imgObj.height; i++) {
+    bufferArray.push(imgObj.pixelArray.slice(start, end))
+    start = end;
+    end = end + imgObj.width;
+  }
+  // Reversal of array containing rows
+  bufferArray = bufferArray.reverse();
+  // Concatination of row buffers in reverse order
+  imgObj.pixelArray = Buffer.concat(bufferArray);
+  // Pass back the object containing altered data
+  return imgObj;
+};
+
+transform.hFlip = function (imgObj) {
+  // Verify the argument passed exists and is an object containing buffer data
+  if (!imgObj || !imgObj.allData) return null;
+  // Declaration of beginning and end points for row slices
+  let start = 0, end = imgObj.width, bufferArray = [];
+  // Seperation of rows from pixel array buffer into array of row buffers
+  for (let i = 0; i < imgObj.height; i++) {
+    bufferArray.push(imgObj.pixelArray.slice(start, end))
+    start = end;
+    end = end + imgObj.width;
+  }
+  // Reversal of rows contained in array
+  for (let i in bufferArray) bufferArray[i] = bufferArray[i].reverse();
+  // Concatination of row buffers in reverse order
+  imgObj.pixelArray = Buffer.concat(bufferArray);
+  // Pass back the object containing altered data
+  return imgObj;
+};
+
+transform.dFlip = function (imgObj) {
+  // Verify the argument passed exists and is an object containing buffer data
+  if (!imgObj || !imgObj.allData) return null;
+  // Reversal of entire pixel array to diagonally flip image
+  imgObj.pixelArray = imgObj.pixelArray.reverse();
+  // Pass back the object containing altered data
+  return imgObj;
 };
