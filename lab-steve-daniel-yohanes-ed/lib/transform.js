@@ -7,14 +7,17 @@ const transform = (module.exports = {});
 transform.types = {
   greyscale: true,
   rotate: true,
-  vFlip: true,
-  hFlip: true,
-  dFlip: true,
+  vflip: true,
+  hflip: true,
+  dflip: true,
+  blueify: true,
+  greenify: true,
+  redify: true,
+  border: true,
 };
 
+// Apply a transformation given the 'type' string
 transform.applyT = function(bufferObj, type) {
-  console.log(bufferObj);
-  console.log(type);
   // Verify the transformation type exists
   if (!(type in transform.types)) return null;
 
@@ -22,19 +25,26 @@ transform.applyT = function(bufferObj, type) {
   // Don't forget to put them in the transform.types object above as well
   if (type === 'greyscale') {
     return transform.greyScale(bufferObj);
-  } else if (type === 'rotate') {
-    return transform.rotate(bufferObj);
-  } else if (type === 'vFlip') {
+  } else if (type === 'blueify') {
+    return transform.rgbify(bufferObj, 0);
+  } else if (type === 'greenify') {
+    return transform.rgbify(bufferObj, 1);
+  } else if (type === 'redify') {
+    return transform.rgbify(bufferObj, 2);
+  } else if (type === 'vflip') {
     return transform.vFlip(bufferObj);
-  } else if (type === 'hFlip') {
+  } else if (type === 'hflip') {
     return transform.hFlip(bufferObj);
-  } else if (type === 'dFlip') {
+  } else if (type === 'dflip') {
     return transform.dFlip(bufferObj);
+  } else if (type === 'border') {
+    // ED PUT YOUR BORDER FUNCTION CALL HERE!!!
   }
 };
 
 transform.greyScale = function(bufferObj) {
-  console.log('greyScale!');
+  if (!bufferObj || !bufferObj.allData) return null;
+
   //Pixel with RGB values of (30,128,255)
   // The red level R=30, The green level G=128, The blue level B=255
   // R' = G' = B' = (R+G+B) / 3 = (30+128+255) / 3 = 138
@@ -49,7 +59,45 @@ transform.greyScale = function(bufferObj) {
     bufferObj.colorTable[i + 1] = avgColors;
     bufferObj.colorTable[i + 2] = avgColors;
   }
-  console.log('new buffer', bufferObj);
+
+  return bufferObj;
+};
+
+transform.rgbify = function(bufferObj, rgb) {
+  if (!bufferObj || !bufferObj.allData) return null;
+  if (rgb < 0 || rgb > 2) return null;
+
+  // Colors are formatted as follows:
+  // bufferObj.colorTable[i + 0] = blue
+  // bufferObj.colorTable[i + 1] = green
+  // bufferObj.colorTable[i + 2] = red
+  switch (rgb) {
+  case 0:
+    // if rgb == 0, blueify
+    for (let i = 0; i < bufferObj.colorTable.length / 4; i += 4) {
+      bufferObj.colorTable[i + 1] = 0;
+      bufferObj.colorTable[i + 2] = 0;
+    }
+    break;
+  case 1:
+    // if rgb == 1, greenify
+    for (let i = 0; i < bufferObj.colorTable.length / 4; i += 4) {
+      bufferObj.colorTable[i] = 0;
+      bufferObj.colorTable[i + 2] = 0;
+    }
+    break;
+  case 2:
+    // if rgb == 2, redify
+    for (let i = 0; i < bufferObj.colorTable.length / 4; i += 4) {
+      bufferObj.colorTable[i] = 0;
+      bufferObj.colorTable[i + 1] = 0;
+    }
+    break;
+  default:
+    console.error(`Invalid rgb selection: ${rgb}`);
+    return null;
+  }
+
   return bufferObj;
 };
 

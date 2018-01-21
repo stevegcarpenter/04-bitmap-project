@@ -5,6 +5,7 @@ const Bitmap = require('./bitmap');
 const transform = require('./transform');
 const editor = (module.exports = {});
 
+// Read a bitmap file and optionally make a transformation
 editor.readBitmap = (readPath, options, callback) => {
   if (!readPath || !options) return null;
 
@@ -40,8 +41,8 @@ editor.readBitmap = (readPath, options, callback) => {
   });
 };
 
+// Write a bitmap image file given the data and destination path
 editor.writeBitmap = function(writePath, data, testCB) {
-  console.log('writepath' + writePath);
   if (!writePath || !data) return null;
   let newBuffer = Buffer.concat(
     [data.allData.slice(0, 54), data.colorTable, data.pixelArray],
