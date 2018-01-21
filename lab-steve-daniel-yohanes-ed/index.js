@@ -20,6 +20,7 @@ function usage() {
                        greenify         Change bitmap image to all green
                        redify           Change bitmap image to all red
                        border           Add white border around bitmap image
+                       bigfoot          Overlay bigfoot text on bitmap image
     `
   );
 }

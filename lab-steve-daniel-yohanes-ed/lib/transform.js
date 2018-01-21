@@ -13,6 +13,7 @@ transform.types = {
   greenify: true,
   redify: true,
   border: true,
+  bigfoot: true,
 };
 
 // Apply a transformation given the 'type' string
@@ -38,6 +39,8 @@ transform.applyT = function(bufferObj, type) {
     return transform.dFlip(bufferObj);
   } else if (type === 'border') {
     return transform.addBorder(bufferObj);
+  } else if (type === 'bigfoot') {
+    // ED PUT YOUR FUNCTION 'CALL' HERE :D - Please define below.
   }
 };
 
