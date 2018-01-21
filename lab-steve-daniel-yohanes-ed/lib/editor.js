@@ -58,7 +58,7 @@ editor.writeBitmap = function(writePath, data, testCB) {
   );
 
   fs.writeFile(writePath, newBuffer, (err, data) => {
-    if (err) testCB(err);
-    else testCB(null, data);
+    if (err && testCB) testCB(err);
+    else if (testCB) testCB(null, data);
   });
 };
