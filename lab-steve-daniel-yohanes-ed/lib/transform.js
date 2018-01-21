@@ -11,9 +11,8 @@ transform.types = {
   redify: true,
 };
 
+// Apply a transformation given the 'type' string
 transform.applyT = function(bufferObj, type) {
-  console.log(bufferObj);
-  console.log(type);
   // Verify the transformation type exists
   if (!(type in transform.types)) return null;
 
