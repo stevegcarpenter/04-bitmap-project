@@ -12,14 +12,14 @@ function usage() {
                        name, this program will modify the original image and
                        store the result in the output file.
 
-    transform-names:   greyscale: Apply greyscale modification
-                       vflip:     Vertically flip
-                       hflip:     Horizontally flip
-                       dflip:     Diagonally flip
-                       blueify:   Change bitmap image to all blue
-                       greenify:  Change bitmap image to all green
-                       redify:    Change bitmap image to all red
-                       border:    Add white border around bitmap image
+    transform-names:   greyscale:       Apply greyscale modification
+                       vflip:           Vertically flip
+                       hflip:           Horizontally flip
+                       dflip:           Diagonally flip
+                       blueify:         Change bitmap image to all blue
+                       greenify:        Change bitmap image to all green
+                       redify:          Change bitmap image to all red
+                       border:          Add white border around bitmap image
     `
   );
 }
@@ -36,12 +36,6 @@ function executeProgram(options) {
 
 // Start Execution
 (function() {
-  // Allow user to get info about the program
-  if (process.argv.length !== 5 && process.argv[3] === '-h') {
-    usage();
-    return;
-  }
-
   // Validate that the number of arguments provided was correct
   if (process.argv.length !== 5) {
     console.error('Error: 3 Arguments Are Mandatory');
