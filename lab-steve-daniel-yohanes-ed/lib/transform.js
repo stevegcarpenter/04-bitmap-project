@@ -37,7 +37,7 @@ transform.applyT = function(bufferObj, type) {
   } else if (type === 'dflip') {
     return transform.dFlip(bufferObj);
   } else if (type === 'border') {
-    // ED PUT YOUR BORDER FUNCTION CALL HERE!!!
+    return transform.addBorder(bufferObj);
   }
 };
 
@@ -146,3 +146,33 @@ transform.dFlip = function (imgObj) {
   // Pass back the object containing altered data
   return imgObj;
 };
+
+transform.addBorder = function(bufferObj) {
+  if (!bufferObj || !bufferObj.allData) return null;
+  // Bottom border
+  for (let i = 0; i < 300; i++) {
+    bufferObj.pixelArray[i] = 0x15;
+    bufferObj.pixelArray[i + 1] = 0x15;
+    bufferObj.pixelArray[i + 2] = 0x15;
+  }
+  //Top border
+  for (let j = 9700; j < 10000; j++) {
+    bufferObj.pixelArray[j] = 0x15;
+    bufferObj.pixelArray[j + 1] = 0x15;
+    bufferObj.pixelArray[j + 2] = 0x15;
+  }
+  // Left border
+  for (let k = 0; k < 10000; k +=100) {
+    bufferObj.pixelArray[k] = 0x15;
+    bufferObj.pixelArray[k + 1] = 0x15;
+    bufferObj.pixelArray[k + 2] = 0x15;
+  }
+  // Right border
+  for (let l = 0; l < 10000; l +=100) {
+    bufferObj.pixelArray[l + 97] = 0x15;
+    bufferObj.pixelArray[l + 98] = 0x15;
+    bufferObj.pixelArray[l + 99] = 0x15;
+  }
+  return bufferObj;
+};
+
