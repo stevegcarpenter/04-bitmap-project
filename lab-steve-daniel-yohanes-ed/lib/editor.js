@@ -32,7 +32,7 @@ editor.readBitmap = (readPath, options, callback) => {
         console.log(bufferObj);
         console.log('tranType');
         console.log(tranType);
-        newData = transform.applyT(bufferObj. tranType);
+        newData = transform.applyT(bufferObj, tranType);
       }
     }
 
