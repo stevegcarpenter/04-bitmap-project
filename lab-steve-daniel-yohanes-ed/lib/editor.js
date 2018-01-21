@@ -8,12 +8,14 @@ const editor = (module.exports = {});
 // Read a bitmap file and optionally make a transformation
 editor.readBitmap = (readPath, options, callback) => {
   if (!readPath || !options) return null;
+  if (typeof readPath !== 'string') return null;
+  if (typeof options !== 'object') return null;
 
   // Read the bmp file
   fs.readFile(readPath, (err, data) => {
     if (err) {
       if (callback) callback(err);
-      return console.error(new Error(err));
+      return;
     }
 
     var bufferObj;
@@ -44,12 +46,19 @@ editor.readBitmap = (readPath, options, callback) => {
 // Write a bitmap image file given the data and destination path
 editor.writeBitmap = function(writePath, data, testCB) {
   if (!writePath || !data) return null;
+  if (!(data instanceof Bitmap)) {
+    console.log(`Error, typeof data is ${typeof data}`);
+    return null;
+  }
+  if (typeof writePath != 'string') return null;
+
   let newBuffer = Buffer.concat(
     [data.allData.slice(0, 54), data.colorTable, data.pixelArray],
     data.allData.length
   );
 
-  fs.writeFile(writePath, newBuffer, err => {
-    if (err) testCB(err);
+  fs.writeFile(writePath, newBuffer, (err, data) => {
+    if (err && testCB) testCB(err);
+    else if (testCB) testCB(null, data);
   });
 };

@@ -6,11 +6,20 @@ const editor = require('./lib/editor');
 function usage() {
   console.log(
     `
-    usage:       transform <input-file-path> <output-file-path> <transform-name>
+    usage:             transform <input-file-path> <output-file-path> <transform-name>
 
-    description: given an input file, output file, and a tranformation
-                 type, this program will modify the original image and
-                 store the result in the output file.
+    description:       Given an input file, output file, and a tranformation
+                       name, this program will modify the original image and
+                       store the result in the output file.
+
+    transform-names:   greyscale        Apply greyscale modification
+                       vflip            Vertically flip
+                       hflip            Horizontally flip
+                       dflip            Diagonally flip
+                       blueify          Change bitmap image to all blue
+                       greenify         Change bitmap image to all green
+                       redify           Change bitmap image to all red
+                       border           Add white border around bitmap image
     `
   );
 }
