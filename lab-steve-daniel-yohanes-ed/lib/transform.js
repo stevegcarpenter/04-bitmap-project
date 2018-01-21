@@ -7,12 +7,13 @@ const transform = (module.exports = {});
 transform.types = {
   greyscale: true,
   rotate: true,
-  vFlip: true,
-  hFlip: true,
-  dFlip: true,
+  vflip: true,
+  hflip: true,
+  dflip: true,
   blueify: true,
   greenify: true,
   redify: true,
+  border: true,
 };
 
 // Apply a transformation given the 'type' string
@@ -30,12 +31,14 @@ transform.applyT = function(bufferObj, type) {
     return transform.rgbify(bufferObj, 1);
   } else if (type === 'redify') {
     return transform.rgbify(bufferObj, 2);
-  } else if (type === 'vFlip') {
+  } else if (type === 'vflip') {
     return transform.vFlip(bufferObj);
-  } else if (type === 'hFlip') {
+  } else if (type === 'hflip') {
     return transform.hFlip(bufferObj);
-  } else if (type === 'dFlip') {
+  } else if (type === 'dflip') {
     return transform.dFlip(bufferObj);
+  } else if (type === 'border') {
+    // ED PUT YOUR BORDER FUNCTION CALL HERE!!!
   }
 };
 
