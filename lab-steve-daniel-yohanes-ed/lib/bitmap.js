@@ -2,8 +2,7 @@
 
 const bitmap = module.exports = {};
 
-bitmap.Buff = function(err, buffer) {
-  if (err) return console.error(err);
+bitmap.Buff = function(buffer) {
   this.allData = buffer;
   this.type = buffer.toString('utf-8', 0, 2);
   this.fileSize = buffer.readUInt32LE(2);
@@ -12,7 +11,7 @@ bitmap.Buff = function(err, buffer) {
   this.height = buffer.readUInt32LE(22);
   this.colorTable = buffer.slice(54, this.offset);
   this.pixelArray = buffer.slice(this.offset);
-  this.compression = buffer.readUInt32(30);
-  this.bitsPerPixel = buffer.readUInt16(28);
+  this.compression = buffer.readUInt32LE(30);
+  this.bitsPerPixel = buffer.readUInt16LE(28);
   return this;
 };

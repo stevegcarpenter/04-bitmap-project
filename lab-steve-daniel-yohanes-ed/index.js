@@ -17,6 +17,8 @@ function usage() {
 }
 
 function executeProgram(options) {
+  console.log('transform')
+  console.log(transform)
   let transformFuncs = {
     greyscale: transform.greyScale,
     rotate: transform.rotate,

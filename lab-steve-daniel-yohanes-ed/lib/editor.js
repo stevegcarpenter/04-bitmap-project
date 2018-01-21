@@ -14,13 +14,17 @@ editor.readBitmap = (readPath, options) => {
 
     let bufferObj;
     let newData;
-
+    console.log('options')
+console.log(options)
     // if a bitmap function was provided, run it
     if (options.bitMapFunc) {
+      console.log('in bitmapfunc')
       bufferObj = options.bitMapFunc(data);
+      console.log(bufferObj)
 
       // transform the data
       if (options.transformFunc) {
+        console.log('in transformmapfunc')
         newData = options.transformFunc(bufferObj);
       }
     }
@@ -35,6 +39,7 @@ editor.readBitmap = (readPath, options) => {
 };
 
 function writeBitmap(writePath, data, testCB) {
+  console.log('writepath' + writePath);
   if (!writePath || !data) return null;
   let newBuffer = Buffer.concat(
     [data.allData.slice(0, 54), data.colorTable, data.pixelArray],
