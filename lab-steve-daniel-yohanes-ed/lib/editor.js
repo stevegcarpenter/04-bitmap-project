@@ -27,11 +27,6 @@ editor.readBitmap = (readPath, options, callback) => {
       if (options.doTransform) {
         // Pass in the Buffer array and a transform string indicating
         // which transformation to make (e.g. 'greyscale', 'rotate', etc)
-        console.log('editor.js');
-        console.log('bufferObj');
-        console.log(bufferObj);
-        console.log('tranType');
-        console.log(tranType);
         newData = transform.applyT(bufferObj, tranType);
       }
     }
@@ -50,7 +45,7 @@ editor.writeBitmap = function(writePath, data, testCB) {
   if (!writePath || !data) return null;
   let newBuffer = Buffer.concat(
     [data.allData.slice(0, 54), data.colorTable, data.pixelArray],
-    data.allData.length()
+    data.allData.length
   );
 
   fs.writeFile(writePath, newBuffer, err => {
