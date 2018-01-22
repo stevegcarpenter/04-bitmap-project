@@ -53,10 +53,7 @@ transform.greyScale = function(bufferObj) {
   // so the pixel will get RGB values of: (138,138,138)
   for (var i = 0; i < bufferObj.colorTable.length / 4; i += 4) {
     let avgColors =
-      (bufferObj.colorTable[i] +
-        bufferObj.colorTable[i + 1] +
-        bufferObj.colorTable[i + 2]) /
-      3;
+      (bufferObj.colorTable[i] + bufferObj.colorTable[i + 1] + bufferObj.colorTable[i + 2]) / 3;
     bufferObj.colorTable[i] = avgColors;
     bufferObj.colorTable[i + 1] = avgColors;
     bufferObj.colorTable[i + 2] = avgColors;
@@ -182,6 +179,7 @@ transform.addBorder = function(bufferObj) {
 
 transform.writeBigfoot = function(bufferObj) {
   if (!bufferObj || !bufferObj.allData) return null;
+
   let colorYellow = 0x08; //offset to yellow
   for (let k = 6000; k < 9000; k +=100) {
     //vertical long
