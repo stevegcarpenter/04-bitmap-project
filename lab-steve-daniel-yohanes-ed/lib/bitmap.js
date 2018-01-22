@@ -1,6 +1,7 @@
 'use strict';
 
 module.exports = function(buffer) {
+  if(!buffer || !Buffer.isBuffer(buffer)) return null;
   this.allData = buffer;
   this.type = buffer.toString('utf-8', 0, 2);
   this.fileSize = buffer.readUInt32LE(2);

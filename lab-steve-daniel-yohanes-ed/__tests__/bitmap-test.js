@@ -1,13 +1,34 @@
 'use strict';
 
-const bitmap = require('../lib/bitmap');
-const editor = require('../lib/editor');
+const fs = require('fs');
+const Bitmap = require('../lib/bitmap');
+require('jest');
 
 
-describe('Bitmap Module', () => {
-  describe('#Buff', () => {
-    it('should change the buffer data to an object', () => {
-      editor.readBitmap('../__tests__/assets/editor.readBitmap', bitmap.Buff())
+describe('Bitmap Module', function () {
+  describe('#Bitmap', function () {
+    it('Should return null if not provided a buffer', function () {
+      expect(Bitmap()).toBeNull();
+    });
+    it('Should return a valid instance of Bitmap', function (done) {
+      fs.readFile('assets/bitmap.bmp', (err, data) => {
+        if (err) console.error(new Error(err));
+        if (data) {
+          let bmp = new Bitmap(data);
+          expect(bmp).toBeInstanceOf(Bitmap);
+          done();
+        }
+      });
+    });
+    it('Should return a valid instance of Bitmap', function (done) {
+      fs.readFile('assets/bitmap.bmp', (err, data) => {
+        if (err) console.error(new Error(err));
+        if (data) {
+          let bmp = new Bitmap(data);
+          expect(bmp.allData).not.toBeNull();
+          done();
+        }
+      });
     });
   });
 });

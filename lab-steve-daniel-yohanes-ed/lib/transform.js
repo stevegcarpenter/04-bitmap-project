@@ -40,7 +40,7 @@ transform.applyT = function(bufferObj, type) {
   } else if (type === 'border') {
     return transform.addBorder(bufferObj);
   } else if (type === 'bigfoot') {
-    // ED PUT YOUR FUNCTION 'CALL' HERE :D - Please define below.
+    return transform.writeBigfoot(bufferObj);
   }
 };
 
@@ -152,29 +152,149 @@ transform.dFlip = function (imgObj) {
 
 transform.addBorder = function(bufferObj) {
   if (!bufferObj || !bufferObj.allData) return null;
+  let colorWhite = 0x15; //offset to white
   // Bottom border
   for (let i = 0; i < 300; i++) {
-    bufferObj.pixelArray[i] = 0x15;
-    bufferObj.pixelArray[i + 1] = 0x15;
-    bufferObj.pixelArray[i + 2] = 0x15;
+    bufferObj.pixelArray[i] = colorWhite;
+    bufferObj.pixelArray[i + 1] = colorWhite;
+    bufferObj.pixelArray[i + 2] = colorWhite;
   }
   //Top border
   for (let j = 9700; j < 10000; j++) {
-    bufferObj.pixelArray[j] = 0x15;
-    bufferObj.pixelArray[j + 1] = 0x15;
-    bufferObj.pixelArray[j + 2] = 0x15;
+    bufferObj.pixelArray[j] = colorWhite;
+    bufferObj.pixelArray[j + 1] = colorWhite;
+    bufferObj.pixelArray[j + 2] = colorWhite;
   }
   // Left border
   for (let k = 0; k < 10000; k +=100) {
-    bufferObj.pixelArray[k] = 0x15;
-    bufferObj.pixelArray[k + 1] = 0x15;
-    bufferObj.pixelArray[k + 2] = 0x15;
+    bufferObj.pixelArray[k] = colorWhite;
+    bufferObj.pixelArray[k + 1] = colorWhite;
+    bufferObj.pixelArray[k + 2] = colorWhite;
   }
   // Right border
   for (let l = 0; l < 10000; l +=100) {
-    bufferObj.pixelArray[l + 97] = 0x15;
-    bufferObj.pixelArray[l + 98] = 0x15;
-    bufferObj.pixelArray[l + 99] = 0x15;
+    bufferObj.pixelArray[l + 97] = colorWhite;
+    bufferObj.pixelArray[l + 98] = colorWhite;
+    bufferObj.pixelArray[l + 99] = colorWhite;
+  }
+  return bufferObj;
+};
+
+transform.writeBigfoot = function(bufferObj) {
+  if (!bufferObj || !bufferObj.allData) return null;
+  let colorYellow = 0x08; //offset to yellow
+  for (let k = 6000; k < 9000; k +=100) {
+    //vertical long
+    //b
+    bufferObj.pixelArray[k + 3] = colorYellow;
+    bufferObj.pixelArray[k + 4] = colorYellow;
+    bufferObj.pixelArray[k + 5] = colorYellow;
+    //f
+    bufferObj.pixelArray[k + 43] = colorYellow;
+    bufferObj.pixelArray[k + 44] = colorYellow;
+    bufferObj.pixelArray[k + 45] = colorYellow;
+    //t
+    bufferObj.pixelArray[k + 89] = colorYellow;
+    bufferObj.pixelArray[k + 90] = colorYellow;
+    bufferObj.pixelArray[k + 91] = colorYellow;
+  }
+
+  for (let k = 6000; k < 8000; k +=100) {
+    //vertical long i
+    //i
+    bufferObj.pixelArray[k + 19] = colorYellow;
+    bufferObj.pixelArray[k + 20] = colorYellow;
+    bufferObj.pixelArray[k + 21] = colorYellow;
+  }
+
+  for (let k = 8500; k < 9000; k +=100) {
+    //i dot
+    bufferObj.pixelArray[k + 19] = colorYellow;
+    bufferObj.pixelArray[k + 20] = colorYellow;
+    bufferObj.pixelArray[k + 21] = colorYellow;
+  }
+
+  for (let k = 6000; k < 7300; k +=100) {
+    //vertical short
+    //b
+    bufferObj.pixelArray[k + 13] = colorYellow;
+    bufferObj.pixelArray[k + 14] = colorYellow;
+    bufferObj.pixelArray[k + 15] = colorYellow;
+    //g
+    bufferObj.pixelArray[k + 25] = colorYellow;
+    bufferObj.pixelArray[k + 26] = colorYellow;
+    bufferObj.pixelArray[k + 27] = colorYellow;
+    //o
+    bufferObj.pixelArray[k + 55] = colorYellow;
+    bufferObj.pixelArray[k + 56] = colorYellow;
+    bufferObj.pixelArray[k + 57] = colorYellow;
+    bufferObj.pixelArray[k + 66] = colorYellow;
+    bufferObj.pixelArray[k + 67] = colorYellow;
+    bufferObj.pixelArray[k + 68] = colorYellow;
+    bufferObj.pixelArray[k + 73] = colorYellow;
+    bufferObj.pixelArray[k + 74] = colorYellow;
+    bufferObj.pixelArray[k + 75] = colorYellow;
+    bufferObj.pixelArray[k + 83] = colorYellow;
+    bufferObj.pixelArray[k + 84] = colorYellow;
+    bufferObj.pixelArray[k + 85] = colorYellow;
+  }
+
+  for (let i = 6; i < 15; i++) {
+    //horizontal short
+    //b
+    bufferObj.pixelArray[i + 6000] = colorYellow;
+    bufferObj.pixelArray[i + 6100] = colorYellow;
+    bufferObj.pixelArray[i + 6200] = colorYellow;
+    bufferObj.pixelArray[i + 7000] = colorYellow;
+    bufferObj.pixelArray[i + 7100] = colorYellow;
+    bufferObj.pixelArray[i + 7200] = colorYellow;
+    //g
+    bufferObj.pixelArray[i + 6022] = colorYellow;
+    bufferObj.pixelArray[i + 6122] = colorYellow;
+    bufferObj.pixelArray[i + 6222] = colorYellow;
+    bufferObj.pixelArray[i + 7022] = colorYellow;
+    bufferObj.pixelArray[i + 7122] = colorYellow;
+    bufferObj.pixelArray[i + 7222] = colorYellow;
+    //f
+    bufferObj.pixelArray[i + 7940] = colorYellow;
+    bufferObj.pixelArray[i + 8040] = colorYellow;
+    bufferObj.pixelArray[i + 8140] = colorYellow;
+    bufferObj.pixelArray[i + 8740] = colorYellow;
+    bufferObj.pixelArray[i + 8840] = colorYellow;
+    bufferObj.pixelArray[i + 8940] = colorYellow;
+    //o
+    bufferObj.pixelArray[i + 6051] = colorYellow;
+    bufferObj.pixelArray[i + 6151] = colorYellow;
+    bufferObj.pixelArray[i + 6251] = colorYellow;
+    bufferObj.pixelArray[i + 7051] = colorYellow;
+    bufferObj.pixelArray[i + 7151] = colorYellow;
+    bufferObj.pixelArray[i + 7251] = colorYellow;
+    bufferObj.pixelArray[i + 6068] = colorYellow;
+    bufferObj.pixelArray[i + 6168] = colorYellow;
+    bufferObj.pixelArray[i + 6268] = colorYellow;
+    bufferObj.pixelArray[i + 7068] = colorYellow;
+    bufferObj.pixelArray[i + 7168] = colorYellow;
+    bufferObj.pixelArray[i + 7268] = colorYellow;
+    //g
+    bufferObj.pixelArray[i + 5023] = colorYellow;
+    bufferObj.pixelArray[i + 5123] = colorYellow;
+    bufferObj.pixelArray[i + 5223] = colorYellow;
+  }
+
+  for (let i = 4; i < 17; i++) {
+    //horizontal short
+    //t
+    bufferObj.pixelArray[i + 8180] = colorYellow;
+    bufferObj.pixelArray[i + 8280] = colorYellow;
+    bufferObj.pixelArray[i + 8380] = colorYellow;
+    bufferObj.pixelArray[i + 8480] = colorYellow;
+  }
+
+  for (let k = 5000; k < 7300; k +=100) {
+    //g
+    bufferObj.pixelArray[k + 37] = colorYellow;
+    bufferObj.pixelArray[k + 38] = colorYellow;
+    bufferObj.pixelArray[k + 39] = colorYellow;
   }
   return bufferObj;
 };
