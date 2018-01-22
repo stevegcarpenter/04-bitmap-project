@@ -108,7 +108,7 @@ transform.vFlip = function (imgObj) {
   if (!imgObj || !imgObj.allData) return null;
   // Declaration of beginning and end points for row slices
   let start = 0, end = imgObj.width, bufferArray = [];
-  // Seperation of rows from pixel array buffer into array of row buffers
+  // Separation of rows from pixel array buffer into array of row buffers
   for (let i = 0; i < imgObj.height; i++) {
     bufferArray.push(imgObj.pixelArray.slice(start, end))
     start = end;
@@ -127,7 +127,7 @@ transform.hFlip = function (imgObj) {
   if (!imgObj || !imgObj.allData) return null;
   // Declaration of beginning and end points for row slices
   let start = 0, end = imgObj.width, bufferArray = [];
-  // Seperation of rows from pixel array buffer into array of row buffers
+  // Separation of rows from pixel array buffer into array of row buffers
   for (let i = 0; i < imgObj.height; i++) {
     bufferArray.push(imgObj.pixelArray.slice(start, end))
     start = end;
