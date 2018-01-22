@@ -72,7 +72,7 @@ describe('Transform Module', function () {
       it('Should return null for an input that is missing the allData property', function () {
         expect(transform.writeBigfoot({ name: 'bigfoot' })).toBeNull();
       });
-      it('Should return an object with a color table that has been altered for greyscale', function () {
+      it('Should return an object with a pixel array that has been altered to reference the color table at 0f', function () {
         expect(transform.writeBigfoot({
           allData: true,
           pixelArray: Buffer.from('1c1c1c1c1c1c', 'hex'),
