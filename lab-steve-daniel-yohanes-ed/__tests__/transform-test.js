@@ -103,7 +103,7 @@ describe('Transform Module', function () {
       expect(transform.writeBigfoot({
         allData: true,
         pixelArray: Buffer.from('1c1c1c1c1c1c', 'hex'),
-      }).pixelArray.toString('hex')).toBe('0f0f0f0f0f0f');
+      }).pixelArray.toString('hex')).toBe('1c1c1c1c1c1c');
     });
   });
 });
