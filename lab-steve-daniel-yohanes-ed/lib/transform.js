@@ -66,7 +66,7 @@ transform.greyScale = function(bufferObj) {
 };
 
 transform.rgbify = function(bufferObj, rgb) {
-  if (!bufferObj || !bufferObj.allData) return null;
+  if (!bufferObj || !bufferObj.allData || rgb === undefined) return null;
   if (rgb < 0 || rgb > 2) return null;
 
   // Colors are formatted as follows:
@@ -108,7 +108,7 @@ transform.vFlip = function (imgObj) {
   if (!imgObj || !imgObj.allData) return null;
   // Declaration of beginning and end points for row slices
   let start = 0, end = imgObj.width, bufferArray = [];
-  // Seperation of rows from pixel array buffer into array of row buffers
+  // Separation of rows from pixel array buffer into array of row buffers
   for (let i = 0; i < imgObj.height; i++) {
     bufferArray.push(imgObj.pixelArray.slice(start, end))
     start = end;
@@ -127,7 +127,7 @@ transform.hFlip = function (imgObj) {
   if (!imgObj || !imgObj.allData) return null;
   // Declaration of beginning and end points for row slices
   let start = 0, end = imgObj.width, bufferArray = [];
-  // Seperation of rows from pixel array buffer into array of row buffers
+  // Separation of rows from pixel array buffer into array of row buffers
   for (let i = 0; i < imgObj.height; i++) {
     bufferArray.push(imgObj.pixelArray.slice(start, end))
     start = end;
@@ -216,7 +216,7 @@ transform.writeBigfoot = function(bufferObj) {
 
   for (let k = 6000; k < 7300; k +=100) {
     //vertical short
-    //b 
+    //b
     bufferObj.pixelArray[k + 13] = colorYellow;
     bufferObj.pixelArray[k + 14] = colorYellow;
     bufferObj.pixelArray[k + 15] = colorYellow;
@@ -294,7 +294,7 @@ transform.writeBigfoot = function(bufferObj) {
     //g
     bufferObj.pixelArray[k + 37] = colorYellow;
     bufferObj.pixelArray[k + 38] = colorYellow;
-    bufferObj.pixelArray[k + 39] = colorYellow; 
+    bufferObj.pixelArray[k + 39] = colorYellow;
   }
   return bufferObj;
 };
