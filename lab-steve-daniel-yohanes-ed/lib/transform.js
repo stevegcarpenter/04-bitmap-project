@@ -66,7 +66,7 @@ transform.greyScale = function(bufferObj) {
 };
 
 transform.rgbify = function(bufferObj, rgb) {
-  if (!bufferObj || !bufferObj.allData) return null;
+  if (!bufferObj || !bufferObj.allData || rgb === undefined) return null;
   if (rgb < 0 || rgb > 2) return null;
 
   // Colors are formatted as follows:
