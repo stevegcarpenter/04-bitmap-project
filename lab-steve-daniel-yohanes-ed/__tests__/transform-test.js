@@ -52,4 +52,32 @@ describe('Transform Module', function () {
       }).pixelArray.toString('hex')).toBe('55bb44003300220011ff');
     });
   });
+  describe('#greyscale', function () {
+    it('Should return null if not provided an image object', function () {
+      expect(transform.greyScale()).toBeNull();
+    });
+    it('Should return null for an input that is missing the allData property', function () {
+      expect(transform.greyScale({ name: 'greyscale' })).toBeNull();
+    });
+    it('Should return an object with a color table that has been altered for greyscale', function () {
+      expect(transform.greyScale({
+        allData: true,
+        colorTable: Buffer.from('11223344112233441122334411223344112233441122334411223344', 'hex'),
+      }, 0).colorTable.toString('hex')).toBe('22222244222222441122334411223344112233441122334411223344');
+    });
+    describe('#bigfoot', function () {
+      it('Should return null if not provided an image object', function () {
+        expect(transform.writeBigfoot()).toBeNull();
+      });
+      it('Should return null for an input that is missing the allData property', function () {
+        expect(transform.writeBigfoot({ name: 'bigfoot' })).toBeNull();
+      });
+      it('Should return an object with a color table that has been altered for greyscale', function () {
+        expect(transform.writeBigfoot({
+          allData: true,
+          pixelArray: Buffer.from('1c1c1c1c1c1c', 'hex'),
+        }).pixelArray.toString('hex')).toBe('0f0f0f0f0f0f');
+      });
+    });
+  });
 });
